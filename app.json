@@ -1,0 +1,16 @@
+{
+  "appName": "NvidiaDriverInstaller",
+  "appVersion": "6.0.1",
+  "appJS": "app.js",
+  "appIcon": "images/logo.png",
+  "appScreenshot": "shot.png",
+  "appDeveloper": "QingCheng",
+  "appSection": "SystemTools",
+  "appSize": "13.1M",
+  "appInstalledSize": "13.2M",
+  "appRemovable": "YES",
+  "appTranslationFile": "languages/Translation",
+  "appPackageName": "nvidia-driver-installer-ext",
+  "appDescription": "This is an U-NAS Nvidia Driver Installer App.",
+  "appMobileHTML": ""
+}

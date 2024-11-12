@@ -1,0 +1,124 @@
+{
+  "UNASTranslation": [
+    {
+      "language": "简体中文",
+      "table": [
+        [
+          "NvidiaDriverInstaller",
+          "nvidia",
+          "Nvidia显卡驱动"
+        ],
+        [
+          "NvidiaDriverInstaller",
+          "0",
+          "Nvidia显卡驱动"
+        ],
+        [
+          "Current Driver Version:",
+          "nvidia",
+          "当前驱动版本："
+        ],
+          [
+            "Installation Version:",
+            "nvidia",
+            "安装版本："
+          ],
+        [
+          "Installation Progress:",
+          "nvidia",
+          "安装进度："
+        ],
+        [
+          "Available Version:",
+          "nvidia",
+          "可安装版本："
+        ],
+        [
+          "New Feature Branch:",
+          "nvidia",
+          "新功能分支版本："
+        ],
+        [
+          "Production Branch:",
+          "nvidia",
+          "产品分支版本："
+        ],
+        [
+          "Current Project",
+          "nvidia",
+          "当前项目地址"
+        ],
+        [
+          "Please enable the home directory in the User Account before use",
+          "0",
+          "使用套件前请先在用户账户应用中开启homes目录"
+        ],
+        [
+          "Token is empty",
+          "0",
+          "Token为空"
+        ],
+        [
+          "User information not obtained",
+          "0",
+          "未获取到用户信息"
+        ],
+        [
+          "Failed to create Configuration directory",
+          "0",
+          "创建配置目录失败"
+        ],
+        [
+          "No configuration directory set",
+          "0",
+          "未设置配置目录"
+        ],
+        [
+          "Configuration directory is not exist",
+          "0",
+          "配置目录不存在"
+        ],
+        [
+          "Please select the driver version to install",
+          "0",
+          "请选择要安装的驱动版本"
+        ],
+        [
+          "Failed to create temporary directory",
+          "0",
+          "创建临时目录失败，无法完成安装"
+        ],
+        [
+          "Driver file download failed",
+          "0",
+          "驱动下载失败"
+        ],
+        [
+          "Runtime failed",
+          "0",
+          "添加Docker的Runtime失败"
+        ],
+        [
+          "The driver is currently being installed, please do not repeat the operation.",
+          "0",
+          "驱动正在安装中，请勿重复操作。"
+        ],
+        [
+          "Driver installation failed.",
+          "0",
+          "驱动安装失败。"
+        ],
+        [
+          "Backend installation in progress, please wait",
+          "0",
+          "后台安装中，请稍后"
+        ],
+        [
+          "Download & Install",
+          "nvidia",
+          "下载并安装"
+        ]
+      ]
+    }
+  ]
+}

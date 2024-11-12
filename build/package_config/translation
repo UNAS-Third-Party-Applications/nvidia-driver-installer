@@ -1,0 +1,54 @@
+﻿{
+    "UNASTranslation": [
+        {
+            "language": "简体中文",
+            "table": [
+                [
+                    "NvidiaDriverInstaller",
+                    "0",
+                    "Nvidia显卡驱动安装器"
+                ],
+                [
+                    "SystemTools",
+                    "0",
+                    "系统工具"
+                ],
+                [
+                    "This is an U-NAS Nvidia Driver Installer App.",
+                    "0",
+                    "软件包提供了一个Nvidia显卡驱动安装程序"
+                ],
+                [
+                    "QingCheng",
+                    "0",
+                    "青城"
+                ]
+            ]
+        },
+        {
+            "language": "한국어",
+            "table": [
+                [
+                    "NvidiaDriverInstaller",
+                    "0",
+                    "NvidiaDriverInstaller"
+                ],
+                [
+                    "SystemTools",
+                    "0",
+                    "시스템 도구"
+                ],
+                [
+                    "This is an U-NAS Nvidia Driver Installer App.",
+                    "0",
+                    "Nvidia드라이버설치"
+                ],
+                [
+                    "QingCheng",
+                    "0",
+                    "QingCheng"
+                ]
+            ]
+        }
+    ]
+}

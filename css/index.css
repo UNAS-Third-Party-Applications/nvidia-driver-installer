@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+.nvidia_manager {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.nvidia_manager .unas_content_right {
+  text-align: center;
+}
+
+.unas_content_right .project-addr {
+  height: 20px;
+  margin: 10px auto;
+}
+
+.nvidia_page_logo {
+  width: 128px;
+  height: 128px;
+  background: url(../images/pagelogo.png) no-repeat;
+  margin: 0px auto;
+  margin-right: 60px;
+  display: block;
+}
+
+.nvidia-item-li .show {
+  display: block;
+}
+
+.nvidia-item-li .hidden {
+  display: none;
+}
+
+.nvidia-item-li .unas_item_li {
+  width: 390px;
+}
+
+.nvidia-item-li .span_left {
+  width: 150px;
+}
+
+.nvidia-item-li span .unas_input {
+  width: 200px;
+}
+
+.nvidia-item-li .unas_item_li .input_warning_info {
+  display: block;
+  float: right;
+  color: #f24141;
+}
+
+.nvidia-item-li .unas_item_li .unas_select {
+  padding-right: 0px;
+}
+
+.info-div {
+  display: none;
+  padding: 5px 20px;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  width: 500px;
+}
+
+.success-info {
+  display: block !important;
+  border-color: #23e65e;
+  background-color: #7ae49a;
+  color: #ffffff;
+}
+
+.error-info {
+  display: block !important;
+  border-color: #ff5f5f;
+  background-color: #f66d6d;
+  color: #ffffff;
+}

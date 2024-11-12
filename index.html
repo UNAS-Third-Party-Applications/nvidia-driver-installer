@@ -1,0 +1,333 @@
+<!--[if IE]>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>U-NAS</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/apps/nvidia-driver-installer/css/index.css?v=6.0.1&"
+    />
+    <script>
+      window.top.UNAS.SetAppState('NvidiaDriverInstaller', 'active')
+    </script>
+    <script language="JavaScript" type="text/javascript">
+      jQuery.noConflict()
+      ;(function () {
+        getInfo()
+        jQuery('input[type=radio][name=nvidia_version_radio]').change(
+          function () {
+            if (jQuery('#nvidia_install_progress_li').hasClass('hidden')) {
+              jQuery('#nvidia_install').attr('class', 'unas_button')
+            }
+          }
+        )
+      })()
+
+      function getInfo(useLoading = true) {
+        if (useLoading) {
+          jQuery('#nvidia_manager_waiting_content').attr(
+            'style',
+            'display:block'
+          )
+          jQuery('#nvidia_manager_waiting_logo').attr('style', 'display:block')
+        }
+        jQuery.ajax({
+          url: '/apps/nvidia-driver-installer/includes/services.php',
+          type: 'POST',
+          async: true,
+          contentType: 'application/json',
+          data: JSON.stringify({ token: UToken, action: 'getInfo' }),
+          dataType: 'json',
+          timeout: 20000,
+          success: function (data) {
+            if (data.err === 1) {
+              jQuery('#nvidia_info').removeClass('success-info')
+              jQuery('#nvidia_info').addClass('error-info')
+              jQuery('#nvidia_info').html(UNAS._(data.msg))
+            } else {
+              jQuery('#nvidia_version').html(data.version)
+              if (
+                data.progress !== null &&
+                data.progress !== undefined &&
+                data.progress !== '100%'
+              ) {
+                // 存在进度信息，说明处于安装中
+                jQuery('#nvidia_install_version_li').removeClass('hidden')
+                jQuery('#nvidia_install_version_li').addClass('show')
+                jQuery('#nvidia_install_version').html(data.installVersion)
+                jQuery('#nvidia_install_progress_li').removeClass('hidden')
+                jQuery('#nvidia_install_progress_li').addClass('show')
+                jQuery('#nvidia_install_progress').html(data.progress)
+                jQuery('#nvidia_install').attr('class', 'unas_button_disabled')
+                //进行进度获取
+                setTimeout(() => {
+                  getInfo(false)
+                }, 1000)
+              } else if (data.error !== null && data.error !== undefined) {
+                // 安装失败，进行错误提示
+                jQuery('#nvidia_info').removeClass('success-info')
+                jQuery('#nvidia_info').addClass('error-info')
+                jQuery('#nvidia_info').html(UNAS._(data.error))
+                jQuery('#nvidia_install_version').html('')
+                jQuery('#nvidia_install_version_li').removeClass('show')
+                jQuery('#nvidia_install_version_li').addClass('hidden')
+                jQuery('#nvidia_install_progress').html('')
+                jQuery('#nvidia_install_progress_li').removeClass('show')
+                jQuery('#nvidia_install_progress_li').addClass('hidden')
+              } else {
+                jQuery('#nvidia_install_version').html('')
+                jQuery('#nvidia_install_version_li').removeClass('show')
+                jQuery('#nvidia_install_version_li').addClass('hidden')
+                jQuery('#nvidia_install_progress').html('')
+                jQuery('#nvidia_install_progress_li').removeClass('show')
+                jQuery('#nvidia_install_progress_li').addClass('hidden')
+                if (data.error !== null && data.error !== undefined) {
+                  jQuery('#nvidia_info').html(UNAS._(data.error))
+                  jQuery('#nvidia_install').attr('class', 'unas_button')
+                }
+              }
+            }
+            if (useLoading) {
+              jQuery('#nvidia_manager_waiting_content').attr(
+                'style',
+                'display:none'
+              )
+              jQuery('#nvidia_manager_waiting_logo').attr(
+                'style',
+                'display:none'
+              )
+            }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(textStatus)
+            jQuery('#nvidia_manager_waiting_content').attr(
+              'style',
+              'display:none'
+            )
+            jQuery('#nvidia_manager_waiting_logo').attr('style', 'display:none')
+          },
+        })
+      }
+
+      function submit() {
+        jQuery('#nvidia_info').removeClass('error-info')
+        jQuery('#nvidia_info').removeClass('success-info')
+        jQuery('#nvidia_info').html('')
+        if (jQuery('#nvidia_install').hasClass('unas_button_disabled')) {
+          return false
+        }
+        jQuery('#nvidia_manager_waiting_content').attr('style', 'display:block')
+        jQuery('#nvidia_manager_waiting_logo').attr('style', 'display:block')
+
+        var versionEle = jQuery("[name='nvidia_version_radio']").filter(
+          ':checked'
+        )
+        var version = versionEle.attr('value')
+        var params = {
+          token: UToken,
+          action: 'install',
+          version: version,
+        }
+        jQuery.ajax({
+          url: '/apps/nvidia-driver-installer/includes/services.php',
+          type: 'POST',
+          async: true,
+          contentType: 'application/json',
+          data: JSON.stringify(params),
+          timeout: 20000,
+          dataType: 'json',
+          success: function (data) {
+            if (data.err === 0) {
+              jQuery('#nvidia_info').removeClass('error-info')
+              jQuery('#nvidia_info').addClass('success-info')
+              jQuery('#nvidia_info').html(
+                UNAS._('Backend installation in progress, please wait')
+              )
+            } else {
+              jQuery('#nvidia_info').removeClass('success-info')
+              jQuery('#nvidia_info').addClass('error-info')
+              jQuery('#nvidia_info').html(UNAS._(data.msg))
+            }
+            jQuery('#nvidia_manager_waiting_content').attr(
+              'style',
+              'display:none'
+            )
+            jQuery('#nvidia_manager_waiting_logo').attr('style', 'display:none')
+            getInfo()
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(textStatus)
+            jQuery('#nvidia_manager_waiting_content').attr(
+              'style',
+              'display:none'
+            )
+            jQuery('#nvidia_manager_waiting_logo').attr('style', 'display:none')
+          },
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="nvidia" class="nvidia_manager">
+      <div
+        id="nvidia_manager_waiting_content"
+        class="unas_loading_modal"
+        style="display: none"
+      ></div>
+      <div
+        id="nvidia_manager_waiting_logo"
+        class="unas_loading"
+        style="display: none"
+      ></div>
+      <div class="unas_title">
+        <div
+          id="poweroptions_manager_immediately_tab"
+          class="unas_tab_sel"
+          poweroptionsitemtableid="poweroptions_manager_immediately_page"
+        >
+          <span>##$@nvidia@$##NvidiaDriverInstaller##$@nvidia@$##</span>
+        </div>
+      </div>
+      <div class="unas_content">
+        <div
+          id="jv-unas_content_left"
+          class="unas_content_left"
+          style="
+            position: absolute;
+            width: calc(100% - 150px);
+            left: 0;
+            bottom: 60px;
+            top: 60px;
+          "
+        >
+          <div id="nvidia_info" class="info-div"></div>
+          <div class="unas_items nvidia-item-li">
+            <ul>
+              <li class="unas_item_li" style="width: 400px">
+                <!-- prettier-ignore -->
+                <span class="span_left">##$@nvidia@$##Current Driver Version:##$@nvidia@$##</span>
+                <span id="nvidia_version"></span>
+              </li>
+              <li
+                id="nvidia_install_version_li"
+                class="unas_item_li hidden"
+                style="width: 400px"
+              >
+                <!-- prettier-ignore -->
+                <span class="span_left">##$@nvidia@$##Installation Version:##$@nvidia@$##</span>
+                <span id="nvidia_install_version"></span>
+              </li>
+              <li
+                id="nvidia_install_progress_li"
+                class="unas_item_li hidden"
+                style="width: 400px"
+              >
+                <!-- prettier-ignore -->
+                <span class="span_left">##$@nvidia@$##Installation Progress:##$@nvidia@$##</span>
+                <span id="nvidia_install_progress"></span>
+              </li>
+              <li class="unas_item_li" style="width: 400px">
+                <!-- prettier-ignore -->
+                <span style="margin-top: 6px">##$@nvidia@$##Available Version:##$@nvidia@$##</span>
+              </li>
+              <li class="unas_item_li" style="width: 400px">
+                <span style="margin-top: 6px"
+                  ><input
+                    type="radio"
+                    id="nvidia_version_new"
+                    name="nvidia_version_radio"
+                    value="560.35.03"
+                /></span>
+                <!-- prettier-ignore -->
+                <span>##$@nvidia@$##New Feature Branch:##$@nvidia@$## 560.35.03</span>
+              </li>
+              <li class="unas_item_li" style="width: 400px">
+                <span style="margin-top: 6px"
+                  ><input
+                    type="radio"
+                    id="nvidia_version_prod"
+                    name="nvidia_version_radio"
+                    value="550.54.14"
+                /></span>
+                <!-- prettier-ignore -->
+                <span>##$@nvidia@$##Production Branch:##$@nvidia@$## 550.54.14</span>
+              </li>
+              <li class="unas_item_li" style="width: 400px">
+                <span style="margin-top: 6px"
+                  ><input
+                    type="radio"
+                    id="nvidia_version_470"
+                    name="nvidia_version_radio"
+                    value="470.256.02"
+                /></span>
+                <span>470.256.02</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="unas_content_right">
+          <span class="nvidia_page_logo"></span>
+          <div class="project-addr">
+            <a
+              href="https://github.com/UNS-Third-Party-Applications/nvidia-driver-installer"
+              target="_blank"
+              >##$@nvidia@$##Current Project##$@nvidia@$##</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="unas_footer">
+        <button
+          onClick="submit()"
+          id="nvidia_install"
+          class="unas_button_disabled"
+        >
+          ##$@nvidia@$##Download & Install##$@nvidia@$##
+        </button>
+      </div>
+    </div>
+    <script type="text/javascript">
+      ;(function () {
+        var rt = document.getElementById('nvidia')
+        var pageTranslators = window.top.UNAS.CreateNodesTranslators(
+          rt.parentNode
+        )
+        var OnChangeLanguage = function (e) {
+          for (var i = 0; i < pageTranslators.length; i++) {
+            var node = pageTranslators[i].node
+            var p = pageTranslators[i].translateProperty
+            node[p] = window.top.UNAS._(pageTranslators[i].originalText)
+          }
+          if (
+            jQuery('#nvidia_port_warning').attr('class') == 'input_warning_info'
+          ) {
+            nvidiaCheckPort()
+          }
+        }
+        OnChangeLanguage()
+        window.top.UNAS.Event.addEvent('ChangeLanguage', OnChangeLanguage)
+        window.addEventListener(
+          'unload',
+          function (e) {
+            window.top.UNAS.Event.removeEvent(
+              'ChangeLanguage',
+              OnChangeLanguage
+            )
+            window.top.UNAS.SetAppState('NvidiaDriverInstaller', 'inactive')
+          },
+          false
+        )
+      })()
+
+      jQuery('#jv-unas_content_left').mCustomScrollbar({
+        autoHideScrollbar: true,
+        theme: 'minimal-dark',
+      })
+    </script>
+  </body>
+</html>
