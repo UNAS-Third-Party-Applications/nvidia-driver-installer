@@ -18,7 +18,7 @@ cd $TMP_PATH
 # 设置 debconf 前端为 Noninteractive
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-curl -o NVIDIA-Linux-x86_64-$VERSION.run https://cn.download.nvidia.cn/XFree86/Linux-x86_64/$VERSION/NVIDIA-Linux-x86_64-$VERSION.run
+curl -o NVIDIA-Linux-x86_64-$VERSION.run --request GET --url https://cn.download.nvidia.cn/XFree86/Linux-x86_64/$VERSION/NVIDIA-Linux-x86_64-$VERSION.run --header 'Accept: */*' --header 'Accept-Encoding: gzip, deflate, br' --header 'Connection: keep-alive' --header 'Referer: https://www.nvidia.cn/' --header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0'
 if [ $? -ne 0 ]; then
     echo "Driver file download failed"
     echo "{\"installVersion\":\"$VERSION\",\"error\":\"Driver file download failed\"}" > "./info.json"
@@ -93,7 +93,7 @@ echo "{\"installVersion\":\"$VERSION\",\"progress\":\"20%\"}" > "./info.json"
 
 chmod +x ./NVIDIA-Linux-x86_64-$VERSION.run
 # Silent installation of nvidia driver
-./NVIDIA-Linux-x86_64-$VERSION.run --accept-license --no-x-check --no-nouveau-check --silent --ui=none
+./NVIDIA-Linux-x86_64-$VERSION.run --accept-license --no-x-check --no-nouveau-check --silent --ui=none --no-questions
 
 # Check if the current driver version is the version you want to install
 currentVersion=$(modinfo nvidia | grep ^version: | sed 's/^version:\s*//')

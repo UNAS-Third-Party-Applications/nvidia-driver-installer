@@ -10,3 +10,5 @@ set -o pipefail
 if [ -f "/unas/apps/SOFT_DIR/sbin/uninstall.sh" ]; then
   bash /unas/apps/SOFT_DIR/sbin/uninstall.sh
 fi
+# 删除程序文件
+rm -rf /unas/apps/SOFT_DIR
