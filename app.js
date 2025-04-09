@@ -9,11 +9,11 @@ var NvidiaDriverInstallerApp = NvidiaDriverInstallerApp || {} //Define nvidia Ap
 NvidiaDriverInstallerApp.App = function () {
   this.id = 'NvidiaDriverInstaller'
   this.name = 'NvidiaDriverInstaller'
-  this.version = '6.0.1'
+  this.version = '6.0.2'
   this.active = false
-  this.menuIcon = '/apps/nvidia-driver-installer/images/logo.png?v=6.0.1&'
-  this.shortcutIcon = '/apps/nvidia-driver-installer/images/logo.png?v=6.0.1&'
-  this.entryUrl = '/apps/nvidia-driver-installer/index.html?v=6.0.1&'
+  this.menuIcon = '/apps/nvidia-driver-installer/images/logo.png?v=6.0.2&'
+  this.shortcutIcon = '/apps/nvidia-driver-installer/images/logo.png?v=6.0.2&'
+  this.entryUrl = '/apps/nvidia-driver-installer/index.html?v=6.0.2&'
   var self = this
   this.NvidiaDriverInstallerAppWindow = function () {
     if (UNAS.CheckAppState('NvidiaDriverInstaller')) {
@@ -22,7 +22,7 @@ NvidiaDriverInstallerApp.App = function () {
     self.window = new MUI.Window({
       id: 'NvidiaDriverInstallerAppWindow',
       title: UNAS._('NvidiaDriverInstaller'),
-      icon: '/apps/nvidia-driver-installer/images/logo_small.png?v=6.0.1&',
+      icon: '/apps/nvidia-driver-installer/images/logo_small.png?v=6.0.2&',
       loadMethod: 'xhr',
       width: 750,
       height: 480,
@@ -30,7 +30,7 @@ NvidiaDriverInstallerApp.App = function () {
       resizable: true,
       scrollbars: false,
       resizeLimit: { x: [200, 2000], y: [150, 1500] },
-      contentURL: '/apps/nvidia-driver-installer/index.html?v=6.0.1&',
+      contentURL: '/apps/nvidia-driver-installer/index.html?v=6.0.2&',
       require: { css: ['/apps/nvidia-driver-installer/css/index.css'] },
       onBeforeBuild: function () {
         UNAS.SetAppOpenedWindow(
